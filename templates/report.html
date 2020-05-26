@@ -1,0 +1,87 @@
+<!-- templates/upload.html -->
+
+{% extends "base.html" %}
+
+{% block content %}
+<script>
+    function loadAll() {
+        model = document.getElementById("model").value;
+        brand = document.getElementById("brand").value;
+        name1 = document.getElementById("name").value;
+        date_stolen = document.getElementById("date_stolen").value;
+        location_stolen = document.getElementById("location_stolen").value;
+        number_plate = document.getElementById("number_plate").value;
+        image1 = document.getElementById("image").src;
+        var xmlhttp= new XMLHttpRequest();
+        xmlhttp.onreadystatechange = function() {
+        if (this.readyState == 4 && this.status == 201) {
+            var response =this.responseText;
+            var res=JSON.parse(response);
+            document.getElementById("response_message").innerHTML= res.case_id + " is your case ID, this needs to be remembered to track your case in the 'Track a case' page of this website";
+            }
+        if (this.status == 400) {
+            var response =this.responseText;
+            var res=JSON.parse(response);
+            document.getElementById("response_message").innerHTML= res.case_id;
+            }
+        };
+        xmlhttp.open("POST", "http://localhost:8080/report_stolen");
+        xmlhttp.setRequestHeader("Content-Type", "application/json");
+        xmlhttp.send(JSON.stringify({"reported_by": name1, "date_stolen": date_stolen, "location_stolen": location_stolen, "model": model, "brand": brand, "image": image1, "number_plate": number_plate}));
+    }
+
+    var openFile = function(file) {
+    var input = file.target;
+    var reader = new FileReader();
+    reader.onload = function(){
+      var dataURL = reader.result;
+      var output = document.getElementById('image');
+      output.src = dataURL;
+    };
+    reader.readAsDataURL(input.files[0]);
+  };
+</script>
+<!--<form>-->
+<div class="column is-4 is-offset-4">
+            <input type = "text" id = "name" placeholder="Enter your name" size="50">
+            <br>
+            <br>
+            <input type = "text" id = "number_plate" placeholder="Enter your car's number plate" required size="50">
+            <br>
+            <br>
+            <h1>Upload an image of your car</h1>
+            <br>
+            <br>
+            <input type="file" accept='image/*' name="fileupload" value="fileupload" id="fileupload" style="float:right" onchange='openFile(event)'>
+            <br>
+            <br>
+            <img width="500px" height="500px" id="image" size="50">
+            <br>
+            <br>
+            <input type = "text" id = "brand" placeholder="Enter the brand of your car" required size="50">
+            <br>
+            <br>
+            <input type = "text" id = "model" placeholder="Enter the model of your car" required size="50">
+            <br>
+            <br>
+            <input type = "text" id = "date_stolen" placeholder="Enter the date your car was stolen" required size="50">
+            <br>
+            <br>
+            <input type = "text" id = "location_stolen" placeholder="Enter the location where your car was stolen" required size="50">
+            <br>
+            <br>
+            <button class = "button is-block is-info is-large is-fullwidth" onclick = "loadAll()" type="button" id = "b1">Submit</button>
+            <br>
+            <br>
+            <div id="response_message"></div>
+            <br>
+            <br>
+</div>
+<!--</form>-->
+{% endblock %}
+
+
+
+
+
+

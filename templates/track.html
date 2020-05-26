@@ -1,0 +1,95 @@
+<!-- templates/upload.html -->
+
+{% extends "base.html" %}
+
+{% block content %}
+<script>
+    function loadAll() {
+        var xmlhttp= new XMLHttpRequest();
+        xmlhttp.onreadystatechange = function() {
+        if (this.status == 400) {
+            var response =this.responseText;
+            var res=JSON.parse(response);
+            document.getElementById("case_id").innerHTML= "";
+            document.getElementById("reported_by").innerHTML= "";
+            document.getElementById("case_id").innerHTML= "";
+            document.getElementById("image").innerHTML = "";
+            document.getElementById("number_plate").innerHTML = "";
+            document.getElementById("model").innerHTML = "";
+            document.getElementById("brand").innerHTML = "";
+            document.getElementById("date_recovered").innerHTML = "";
+            document.getElementById("date_stolen").innerHTML = "";
+            document.getElementById("location_stolen").innerHTML = "";
+            document.getElementById("response_message").innerHTML= String(res.CustomString);
+        }
+        if (this.readyState == 4 && this.status == 200) {
+            var response =this.responseText;
+            var res=JSON.parse(response);
+            document.getElementById("case_id").innerHTML= "Case ID : " + res.case_id;
+            document.getElementById("reported_by").innerHTML= "Case reported by : " + res.reported_by;
+            image = new Image();
+            image.src = res.image;
+            document.getElementById("image").innerHTML = "";
+            document.getElementById("image").appendChild(image);
+            document.getElementById("number_plate").innerHTML= "Number plate of the car : " + res.number_plate;
+            document.getElementById("model").innerHTML= "Model of the car : " + res.model;
+            document.getElementById("date_stolen").innerHTML= "Car was stolen  on : " + res.date_stolen;
+            document.getElementById("location_stolen").innerHTML= "Car was stolen at location : " + res.location_stolen;
+            document.getElementById("brand").innerHTML= "Brand of the car : " + res.brand;
+            if(res.status == "Resolved"){
+                document.getElementById("date_recovered").innerHTML= "Car was recovered on : " + res.date_recovered;
+                document.getElementById("response_message").innerHTML= "Case has been resolved by " + "Officer "+String(res.handled_by) +", the car can be collected at Jeevanbhimanagar police station";  
+            }
+            else if (res.status == "Unassigned"){ 
+                document.getElementById("response_message").innerHTML= "Case has not yet been assigned to an officer";  
+            }
+            else{
+                document.getElementById("response_message").innerHTML= "Officer "+String(res.handled_by)+" is working on the case";  
+            }
+            }
+        };
+        var address="http://localhost:8080/track_case/"+String(document.getElementById("case_id_input").value);
+        xmlhttp.open("GET", address ,false);
+        xmlhttp.send();
+    }
+</script>
+<div class="column is-4 is-offset-4">
+            <input type = "text" id = "case_id_input" placeholder="Enter a case ID">
+            <br>
+            <br>
+            <button class = "button is-block is-info is-large is-fullwidth" onclick = "loadAll()" type="button" id = "b1">View case report</button>
+            <br>
+            <br>
+            <div id="case_id"></div>
+            <br>
+            <br>
+            <div id="date_stolen"></div>
+            <br>
+            <br>
+            <div id="location_stolen"></div>
+            <br>
+            <br>
+            <div id="date_recovered"></div>
+            <br>
+            <br>
+            <div id="response_message"></div>
+            <br>
+            <br>
+            <div id="handled_by"></div>
+            <br>
+            <br>
+            <div id="image"></div>
+            <br>
+            <br>
+            <div id="model"></div>
+            <br>
+            <br>
+            <div id="brand"></div>
+            <br>
+            <br>
+            <div id="number_plate"></div>
+            <br>
+            <br>
+            <div id="reported_by"></div>
+</div>
+{% endblock %}
