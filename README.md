@@ -18,17 +18,18 @@ Technologies used:
 3) MongoDB database.
 
 Steps to Run the application :
-Install MongoDB 
-Download python 3.5.x or above for your machine.
-Unzip the file in the directory of your choice
-Run all the following commands from the root of the unzipped directory.
-Run ‘pip install -r requirements.txt’.
-Run ‘python api.py’ which runs on localhost:3000
-Run the ‘app.exe’  binary, if the machine is not windows or you wish to build the binary in your system, follow the steps below.
-Install Golang 1.12.x+ on your system.
-If your machine is windows, set all the path variables correctly (GOPATH and GOROOT).
-Run ‘go get github.com/gorilla/mux’
-Run ‘go get go.mongodb.org/mongo-driver’ , ignore the go warning
-Run ‘go build -o <file-name>’
-Run ‘start <file-name>.exe’ for windows and ‘./<file-name>’ for Linux. The application runs on port 8080.
-Type localhost:3000 in your browser URL and the website is ready for exploration
+1) Install MongoDB 
+2) Download python 3.5.x or above for your machine.
+3) Unzip the file in the directory of your choice
+4) Run all the following commands from the root of the unzipped directory.
+5) Run ‘pip install -r requirements.txt’.
+6) Run ‘python api.py’ which runs on localhost:3000
+7) Create the ‘app.exe’  binary, if the machine is not windows or you wish to build the binary in your system, follow the steps below.
+
+8) Install Golang 1.12.x+ on your system.
+9) If your machine is windows, set all the path variables correctly (GOPATH and GOROOT).
+10) Run ‘go get github.com/gorilla/mux’
+11) Run ‘go get go.mongodb.org/mongo-driver’
+12) Run ‘go build -o <file-name>’
+13) Run ‘start <file-name>.exe’ for windows and ‘./<file-name>’ for Linux. The application runs on port 8080.
+14) Type localhost:3000 in your browser URL and the website is ready for exploration
