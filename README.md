@@ -32,4 +32,6 @@ Steps to Run the application :
 11) Run ‘go get go.mongodb.org/mongo-driver’
 12) Run ‘go build -o <file-name>’
 13) Run ‘start <file-name>.exe’ for windows and ‘./<file-name>’ for Linux. The application runs on port 8080.
-14) Type localhost:3000 in your browser URL and the website is ready for exploration
+14) Type localhost:3000 in your browser URL and the website is ready for exploration.
+  
+For screenshots of the site with explanation please refer Screenshots.docx
